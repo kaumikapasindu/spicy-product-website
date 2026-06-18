@@ -56,22 +56,19 @@ spices-website/
 Place the provided screenshots inside a folder named `screenshots`.
 
 ### Home Page
-![Home Page](screenshots/Screenshot%20(9).png)
+![Home Page](Screenshot (9).png)
 
 ### Products Page
-![Products](screenshots/Screenshot%20(10).png)
+![Products](Screenshot (11).png)
 
 ### Shopping Experience
-![Shopping](screenshots/Screenshot%20(11).png)
+![Shopping](Screenshot (10).png)
 
 ### Cart / Checkout
-![Checkout](screenshots/Screenshot%20(12).png)
-
-### User Features
-![User Features](screenshots/Screenshot%20(13).png)
+![Checkout](Screenshot (13).png)
 
 ### Additional Pages
-![Additional Pages](screenshots/Screenshot%20(14).png)
+![Additional Pages](Screenshot (14).png)
 
 ## 🚀 Getting Started
 
