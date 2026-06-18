@@ -1,0 +1,73 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Order History | Spices</title>
+  <link rel="stylesheet" href="assets/css/reviews.css">
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 0; padding: 0; background:#fafafa; }
+    header { background:#7c4b26; color:#fff; padding:16px 20px; }
+    main { padding: 20px; max-width: 1000px; margin: 0 auto; }
+    .card { background:#fff; border-radius:14px; box-shadow:0 6px 20px rgba(0,0,0,.06); padding:16px; margin-bottom:14px; }
+    .row { display:flex; gap:16px; flex-wrap:wrap; align-items:center; }
+    .badge { padding:4px 10px; border-radius:999px; font-size:12px; background:#eee; }
+    .badge.Placed { background:#e0f2fe; }
+    .badge.Processing { background:#fff7ed; }
+    .badge.Shipped { background:#eef2ff; }
+    .badge.Delivered { background:#dcfce7; }
+    a.button { text-decoration:none; border:1px solid #ddd; padding:8px 12px; border-radius:10px; display:inline-block; }
+    .muted { color:#666; font-size: 13px; }
+    .total { font-weight: 700; }
+    .topbar a { color: #fff; text-decoration: none; margin-right: 12px; }
+    .empty { text-align:center; color:#555; padding:40px 0; }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <strong>Spices</strong>
+    <span> &middot; </span>
+    <a href="index.html">Home</a>
+    <a href="order-history.html">Order History</a>
+  </header>
+  <main>
+    <h1>Your Orders</h1>
+    <div id="orders"></div>
+    <div class="empty" id="empty" style="display:none;">No orders yet. Place your first order!</div>
+  </main>
+
+  <script src="assets/js/store.js"></script>
+  <script>
+    // Seed if empty
+    Store.seedDemo();
+
+    const ordersEl = document.getElementById("orders");
+    const emptyEl = document.getElementById("empty");
+    const orders = Store.getOrders().sort((a,b)=> new Date(b.date)-new Date(a.date));
+
+    if (!orders.length) emptyEl.style.display = "block";
+
+    const fmt = (n)=> new Intl.NumberFormat(undefined,{style:"currency",currency:"LKR"}).format(n);
+
+    orders.forEach(o => {
+      const items = o.items.map(i => `${i.name} x ${i.qty}`).join(", ");
+      const div = document.createElement("div");
+      div.className = "card";
+      div.innerHTML = `
+        <div class="row">
+          <div style="flex:1">
+            <div><strong>Order #</strong> ${o.id}</div>
+            <div class="muted">${new Date(o.date).toLocaleString()}</div>
+            <div class="muted">${items}</div>
+          </div>
+          <div><span class="badge ${o.status}">${o.status}</span></div>
+          <div class="total">${fmt(o.total)}</div>
+          <div><a class="button" href="order-tracking.html?orderId=${encodeURIComponent(o.id)}">Track</a></div>
+        </div>
+      `;
+      ordersEl.appendChild(div);
+    });
+  </script>
+</body>
+</html>

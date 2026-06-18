@@ -1,0 +1,341 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Orders (Single File)</title>
+  <style>
+    :root{
+      --brand:#695e55;
+      --bg:#fafafa;
+      --card:#fff;
+      --muted:#666;
+      --line:#eee;
+      --radius:14px;
+      --shadow:0 6px 20px rgba(0,0,0,.06);
+    }
+    *{ box-sizing:border-box; }
+    html,body{ margin:0; padding:0; background:var(--bg); font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; }
+    .wrap{ width:min(1100px, 92%); margin:0 auto; }
+    .topbar{ background:var(--brand); color:#fff; }
+    .topbar .wrap{ display:flex; align-items:center; gap:260px; padding:14px 0; }
+    .topbar nav a{ color:#fff; text-decoration:none; margin-right:25px; }
+    h1{ margin:14px 0; }
+    main{ padding:20px 0 32px; }
+    .controls{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin:10px 0 16px; }
+    input[type="search"], select{ padding:10px; border:1px solid var(--line); border-radius:10px; font:inherit; background:#fff; }
+    .card{ background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); padding:16px; }
+    .order{ display:flex; gap:16px; align-items:center; margin-bottom:12px; }
+    .order .left{ flex:1; }
+    .muted{ color:var(--muted); font-size:13px; }
+    .badge{ padding:4px 10px; border-radius:999px; font-size:12px; background:#eee; white-space:nowrap; }
+    .badge.Placed{ background:#e0f2fe; }
+    .badge.Processing{ background:#fff7ed; }
+    .badge.Shipped{ background:#eef2ff; }
+    .badge.Delivered{ background:#dcfce7; }
+    .total{ font-weight:800; }
+    .btn{ background:#fff; color:#000; border:1px solid var(--line); padding:8px 12px; border-radius:10px; cursor:pointer; }
+    .btn.brand{ background:var(--brand); color:#fff; border:none; }
+    .empty{ text-align:center; color:#444; padding:24px 0; }
+    .grid{ display:grid; grid-template-columns: 1fr; gap:12px; }
+    .row{ display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
+    .pill{ border:1px solid var(--line); padding:6px 10px; border-radius:99px; font-size:12px; white-space:nowrap; cursor:pointer; }
+    .pill.active{ background:#111; color:#fff; border-color:#111; }
+    /* Modal */
+    .modal-backdrop{ position:fixed; inset:0; background:rgba(0,0,0,.35); display:none; }
+    .modal{ position:fixed; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none; }
+    .modal .panel{ width:min(720px, 92%); background:#fff; border-radius:16px; box-shadow:0 20px 60px rgba(0,0,0,.3); padding:16px; transform:translateY(10px); transition:.15s ease; }
+    .modal.show{ pointer-events:auto; }
+    .modal.show .modal-backdrop{ display:block; }
+    .modal.show .panel{ transform:translateY(0); }
+    .timeline{ position:relative; padding-left:18px; }
+    .timeline .line{ position:absolute; left:6px; top:0; bottom:0; width:2px; background:#eee; }
+    .step{ display:flex; gap:10px; margin:10px 0; }
+    .dot{ width:12px; height:12px; border-radius:50%; background:var(--brand); margin-top:3px; }
+    .foot{ padding:18px 0 24px; color:#444; }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <strong>Taste of Ceylon</strong>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="index.html">Home</a>
+        <a href="product.html">Products</a>
+        <a href="service.html">Services</a>
+        <a href="About.html">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <h1>My Orders</h1>
+
+    <div class="controls">
+      <input type="search" id="q" placeholder="Search orders (items, ID, email)…">
+      <div class="row" id="statusPills">
+        <span class="pill active" data-s="all">All</span>
+        <span class="pill" data-s="Placed">Placed</span>
+        <span class="pill" data-s="Processing">Processing</span>
+        <span class="pill" data-s="Shipped">Shipped</span>
+        <span class="pill" data-s="Delivered">Delivered</span>
+      </div>
+      <select id="sort">
+        <option value="newest">Newest first</option>
+        <option value="oldest">Oldest first</option>
+        <option value="total_desc">Total high → low</option>
+        <option value="total_asc">Total low → high</option>
+      </select>
+      <button class="btn" id="reset">Reset</button>
+      <button class="btn brand" id="seed">Add Demo Orders</button>
+    </div>
+
+    <div id="ordersList" class="grid"></div>
+    <div id="empty" class="empty" hidden>No orders yet.</div>
+  </main>
+
+  <footer class="wrap foot">
+    <small>&copy; <span id="year"></span> Spices</small>
+  </footer>
+
+  <!-- Modal for order details / tracking -->
+  <div class="modal" id="modal">
+    <div class="modal-backdrop"></div>
+    <div class="panel">
+      <div class="row" style="justify-content:space-between;">
+        <h3 style="margin:0;">Order Details</h3>
+        <button class="btn" id="closeModal">Close</button>
+      </div>
+      <div id="modalBody" style="margin-top:8px;"></div>
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    const STORAGE_KEY = "spices_orders_v1";
+
+    const $ = (s)=> document.querySelector(s);
+    const $$ = (s)=> Array.from(document.querySelectorAll(s));
+    $("#year").textContent = new Date().getFullYear();
+
+    // ---- Simple Orders DB (localStorage) ----
+    const DB = {
+      read(){
+        try{ const raw = localStorage.getItem(STORAGE_KEY); return raw ? JSON.parse(raw) : []; }
+        catch(e){ return []; }
+      },
+      write(list){
+        try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(list)); }catch(e){}
+      },
+      genId(){ return "ord_"+Date.now()+"_"+Math.random().toString(36).slice(2,8); },
+      addOrder(order){
+        const list = DB.read();
+        const now = new Date().toISOString();
+        const o = Object.assign({
+          id: DB.genId(),
+          date: now,
+          customer: { name: "Guest", email: "guest@example.com" },
+          items: [],
+          total: 0,
+          status: "Placed",
+          trackingNo: "SPC-"+Math.random().toString(36).slice(2,8).toUpperCase(),
+          timeline: [{ ts: now, label: "Order placed" }]
+        }, order||{});
+        list.push(o);
+        DB.write(list);
+        return o.id;
+      },
+      updateStatus(id, status, label){
+        const list = DB.read();
+        const i = list.findIndex(x => x.id === id);
+        if (i === -1) return;
+        list[i].status = status;
+        list[i].timeline.push({ ts: new Date().toISOString(), label: label || status });
+        DB.write(list);
+      },
+      get(id){ return DB.read().find(x => x.id === id); },
+      seed(){
+        if (DB.read().length) return;
+        const id1 = DB.addOrder({
+          customer: { name:"Nimal Perera", email:"nimal@example.com" },
+          items: [{ name:"Ceylon Cinnamon (100g)", qty:2, price:1200 }, { name:"Black Pepper (50g)", qty:1, price:600 }],
+          total: 1200*2 + 600,
+          status: "Processing",
+          timeline: [
+            { ts: new Date(Date.now()-1000*60*60*48).toISOString(), label:"Order placed" },
+            { ts: new Date(Date.now()-1000*60*60*28).toISOString(), label:"Payment confirmed" },
+            { ts: new Date(Date.now()-1000*60*60*18).toISOString(), label:"Processing" }
+          ],
+          trackingNo: "SPC-AB12CD"
+        });
+        DB.updateStatus(id1, "Shipped", "Parcel handed to courier");
+        DB.addOrder({
+          customer: { name:"Kavindi Silva", email:"kavindi@example.com" },
+          items: [{ name:"Turmeric Powder (200g)", qty:1, price:800 }],
+          total: 800,
+          status: "Delivered",
+          timeline: [
+            { ts: new Date(Date.now()-1000*60*60*72).toISOString(), label: "Order placed" },
+            { ts: new Date(Date.now()-1000*60*60*56).toISOString(), label: "Shipped" },
+            { ts: new Date(Date.now()-1000*60*60*24).toISOString(), label: "Delivered" }
+          ],
+          trackingNo: "SPC-ZX98YT"
+        });
+      }
+    };
+
+    // ---- UI State & Elements ----
+    const fmt = (n)=> new Intl.NumberFormat(undefined,{ style:"currency", currency:"LKR" }).format(n);
+    const ordersList = $("#ordersList");
+    const emptyEl = $("#empty");
+    const q = $("#q");
+    const sortSel = $("#sort");
+    const pills = $("#statusPills");
+    const seedBtn = $("#seed");
+    const resetBtn = $("#reset");
+
+    // Modal
+    const modal = $("#modal");
+    const modalBody = $("#modalBody");
+    $("#closeModal").addEventListener("click", ()=> modal.classList.remove("show"));
+    modal.querySelector(".modal-backdrop").addEventListener("click", ()=> modal.classList.remove("show"));
+
+    function openModal(html){
+      modalBody.innerHTML = html;
+      modal.classList.add("show");
+    }
+
+    function orderRow(o){
+      const items = o.items.map(i => `${i.name} x ${i.qty}`).join(", ");
+      const el = document.createElement("div");
+      el.className = "card order";
+      el.innerHTML = `
+        <div class="left">
+          <div><strong>Order #</strong> ${o.id}</div>
+          <div class="muted">${new Date(o.date).toLocaleString()}</div>
+          <div class="muted">${items}</div>
+        </div>
+        <div><span class="badge ${o.status}">${o.status}</span></div>
+        <div class="total">${fmt(o.total)}</div>
+        <div class="row">
+          <button class="btn" data-track="${o.id}">Track</button>
+          <button class="btn" data-view="${o.id}">View</button>
+        </div>
+      `;
+      return el;
+    }
+
+    function render(){
+      const status = pills.querySelector(".pill.active").dataset.s;
+      const term = q.value.trim().toLowerCase();
+      let list = DB.read().slice();
+
+      // Filter by status
+      if (status !== "all") list = list.filter(o => o.status === status);
+      // Search
+      if (term){
+        list = list.filter(o =>
+          (o.id||"").toLowerCase().includes(term) ||
+          (o.customer?.email||"").toLowerCase().includes(term) ||
+          (o.items||[]).some(i => (i.name||"").toLowerCase().includes(term))
+        );
+      }
+      // Sort
+      const s = sortSel.value;
+      if (s === "newest") list.sort((a,b)=> new Date(b.date)-new Date(a.date));
+      if (s === "oldest") list.sort((a,b)=> new Date(a.date)-new Date(b.date));
+      if (s === "total_desc") list.sort((a,b)=> (b.total||0)-(a.total||0));
+      if (s === "total_asc") list.sort((a,b)=> (a.total||0)-(b.total||0));
+
+      ordersList.innerHTML = "";
+      if (!list.length){
+        emptyEl.hidden = false;
+        return;
+      }
+      emptyEl.hidden = true;
+      list.forEach(o => ordersList.appendChild(orderRow(o)));
+    }
+
+    // Track & View handlers (event delegation)
+    ordersList.addEventListener("click", (e)=>{
+      const id = e.target.dataset.track || e.target.dataset.view;
+      if (!id) return;
+      const o = DB.get(id);
+      if (!o) return;
+
+      if (e.target.dataset.track){
+        // Timeline modal
+        const tl = (o.timeline||[]).slice().sort((a,b)=> new Date(a.ts)-new Date(b.ts));
+        const html = `
+          <div style="margin-bottom:6px;"><strong>Order #</strong> ${o.id}</div>
+          <div class="muted" style="margin-bottom:10px;">Tracking No: ${o.trackingNo}</div>
+          <div class="timeline">
+            <div class="line"></div>
+            ${tl.map(ev => `
+              <div class="step">
+                <div class="dot"></div>
+                <div>
+                  <div><strong>${ev.label}</strong></div>
+                  <div class="muted">${new Date(ev.ts).toLocaleString()}</div>
+                </div>
+              </div>
+            `).join("")}
+          </div>`;
+        openModal(html);
+      } else {
+        // Details modal
+        const rows = (o.items||[]).map(i => `
+          <tr><td>${i.name}</td><td style="text-align:center;">${i.qty}</td><td style="text-align:right;">${fmt(i.price||0)}</td><td style="text-align:right;">${fmt((i.price||0)*i.qty)}</td></tr>
+        `).join("");
+        const html = `
+          <div class="row" style="justify-content:space-between;">
+            <div>
+              <div><strong>Order #</strong> ${o.id}</div>
+              <div class="muted">${new Date(o.date).toLocaleString()}</div>
+              <div class="muted">${o.customer?.name||"Guest"} &lt;${o.customer?.email||"guest@example.com"}&gt;</div>
+            </div>
+            <div><span class="badge ${o.status}">${o.status}</span></div>
+          </div>
+          <div style="overflow:auto; margin-top:10px;">
+            <table style="width:100%; border-collapse:collapse;">
+              <thead>
+                <tr><th style="text-align:left;">Item</th><th>Qty</th><th style="text-align:right;">Price</th><th style="text-align:right;">Subtotal</th></tr>
+              </thead>
+              <tbody>${rows}</tbody>
+              <tfoot>
+                <tr><td colspan="3" style="text-align:right; font-weight:700;">Total</td><td style="text-align:right; font-weight:700;">${fmt(o.total||0)}</td></tr>
+              </tfoot>
+            </table>
+          </div>`;
+        openModal(html);
+      }
+    });
+
+    // UI interactions
+    q.addEventListener("input", render);
+    sortSel.addEventListener("change", render);
+    pills.addEventListener("click", (e)=>{
+      const pill = e.target.closest(".pill");
+      if (!pill) return;
+      $$("#statusPills .pill").forEach(p => p.classList.remove("active"));
+      pill.classList.add("active");
+      render();
+    });
+    seedBtn.addEventListener("click", ()=>{ DB.seed(); render(); });
+    resetBtn.addEventListener("click", ()=>{
+      localStorage.removeItem(STORAGE_KEY);
+      render();
+    });
+
+    // Optional: Accept ?addDemo=1 to seed
+    const params = new URLSearchParams(location.search);
+    if (params.get("addDemo")) DB.seed();
+
+    // Initial render
+    render();
+  })();
+  </script>
+</body>
+</html>

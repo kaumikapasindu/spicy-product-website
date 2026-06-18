@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout | Taste of Ceylon</title>
+  <link rel="stylesheet" href="checkout.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <div class="main">
+    <nav class="navbar">
+      <h2 class="logo">Taste of Ceylon</h2>
+      <ul class="menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="product.html">Products</a></li>
+        <li><a href="service.html">Services</a></li>
+        <li><a href="About.html">About</a></li>
+        <li><a href="login.html" class="login-btn">Login</a></li>
+        <li>
+          <a href="cart.html" class="cart-nav">
+            <i class="fa fa-shopping-cart"></i> Cart <span class="cart-count">(0)</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="search">
+        <input type="search" placeholder="Search spices...">
+        <button>Search</button>
+      </div>
+    </nav>
+
+    <div class="checkout-container">
+      <div class="checkout-header">
+        <h1><i class="fas fa-lock"></i> Secure Checkout</h1>
+        <div class="checkout-steps">
+          <div class="step active">1. Cart</div>
+          <div class="step active">2. Information</div>
+          <div class="step">3. Payment</div>
+          <div class="step">4. Confirmation</div>
+        </div>
+      </div>
+
+      <div class="checkout-content">
+        <!-- Order Summary -->
+        <div class="order-summary">
+          <h3><i class="fas fa-receipt"></i> Order Summary</h3>
+          <div id="checkout-items" class="checkout-items">
+            <!-- Items will be populated by JavaScript -->
+          </div>
+          <div class="order-totals">
+            <div class="total-line">
+              <span>Subtotal:</span>
+              <span id="subtotal">Rs. 0</span>
+            </div>
+            <div class="total-line">
+              <span>Shipping:</span>
+              <span id="shipping">Rs. 200</span>
+            </div>
+            <div class="total-line grand-total">
+              <span>Total:</span>
+              <span id="grand-total">Rs. 0</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Checkout Form -->
+        <div class="checkout-form">
+          <form id="checkout-form">
+            <!-- Customer Information -->
+            <div class="form-section">
+              <h3><i class="fas fa-user"></i> Customer Information</h3>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="firstName">First Name *</label>
+                  <input type="text" id="firstName" name="firstName" required>
+                </div>
+                <div class="form-group">
+                  <label for="lastName">Last Name *</label>
+                  <input type="text" id="lastName" name="lastName" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="email">Email Address *</label>
+                <input type="email" id="email" name="email" required>
+              </div>
+              <div class="form-group">
+                <label for="phone">Phone Number *</label>
+                <input type="tel" id="phone" name="phone" required>
+              </div>
+            </div>
+
+            <!-- Shipping Address -->
+            <div class="form-section">
+              <h3><i class="fas fa-truck"></i> Shipping Address</h3>
+              <div class="form-group">
+                <label for="address">Address *</label>
+                <input type="text" id="address" name="address" required>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="city">City *</label>
+                  <input type="text" id="city" name="city" required>
+                </div>
+                <div class="form-group">
+                  <label for="postalCode">Postal Code *</label>
+                  <input type="text" id="postalCode" name="postalCode" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="country">Country *</label>
+                <select id="country" name="country" required>
+                  <option value="">Select Country</option>
+                  <option value="Sri Lanka" selected>Sri Lanka</option>
+                  <option value="India">India</option>
+                  <option value="USA">United States</option>
+                  <option value="UK">United Kingdom</option>
+                  <option value="Canada">Canada</option>
+                  <option value="Australia">Australia</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Payment Method -->
+            <div class="form-section">
+              <h3><i class="fas fa-credit-card"></i> Payment Method</h3>
+              <div class="payment-methods">
+                <div class="payment-option">
+                  <input type="radio" id="credit-card" name="paymentMethod" value="credit-card" checked>
+                  <label for="credit-card">
+                    <i class="fas fa-credit-card"></i> Credit/Debit Card
+                  </label>
+                </div>
+                <div class="payment-option">
+                  <input type="radio" id="paypal" name="paymentMethod" value="paypal">
+                  <label for="paypal">
+                    <i class="fab fa-paypal"></i> PayPal
+                  </label>
+                </div>
+                <div class="payment-option">
+                  <input type="radio" id="bank-transfer" name="paymentMethod" value="bank-transfer">
+                  <label for="bank-transfer">
+                    <i class="fas fa-university"></i> Bank Transfer
+                  </label>
+                </div>
+                <div class="payment-option">
+                  <input type="radio" id="cod" name="paymentMethod" value="cod">
+                  <label for="cod">
+                    <i class="fas fa-money-bill-wave"></i> Cash on Delivery
+                  </label>
+                </div>
+              </div>
+
+              <!-- Card Details (shown when credit card is selected) -->
+              <div id="card-details" class="card-details">
+                <div class="form-group">
+                  <label for="cardNumber">Card Number *</label>
+                  <input type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456">
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="expiryDate">Expiry Date *</label>
+                    <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY">
+                  </div>
+                  <div class="form-group">
+                    <label for="cvv">CVV *</label>
+                    <input type="text" id="cvv" name="cvv" placeholder="123">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="cardName">Name on Card *</label>
+                  <input type="text" id="cardName" name="cardName">
+                </div>
+              </div>
+            </div>
+
+            <!-- Terms and Conditions -->
+            <div class="form-section">
+              <div class="terms">
+                <input type="checkbox" id="terms" name="terms" required>
+                <label for="terms">
+                  I agree to the <a href="#" target="_blank">Terms and Conditions</a> and 
+                  <a href="#" target="_blank">Privacy Policy</a> *
+                </label>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="form-actions">
+              <button type="button" class="back-btn" onclick="goBackToCart()">
+                <i class="fas fa-arrow-left"></i> Back to Cart
+              </button>
+              <button type="submit" class="place-order-btn">
+                <i class="fas fa-lock"></i> Place Order
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+
+  <script src="checkout.js"></script>
+</body>
+</html>

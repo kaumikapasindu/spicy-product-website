@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Spices | Taste of Ceylon</title>
+  <link rel="stylesheet" href="product.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <h2 class="logo">Taste of Ceylon</h2>
+    <ul class="menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="product.html">Products</a></li>
+      <li><a href="service.html">Services</a></li>
+      <li><a href="About.html">About</a></li>
+      <li><a href="login.html" class="login-btn">Login</a></li>
+      <li>
+        <a href="cart.html" class="cart-nav">
+          <i class="fa fa-shopping-cart"></i> Cart <span class="cart-count">(0)</span>
+        </a>
+      </li>
+    </ul>
+
+    <div class="search">
+      <input type="search" placeholder="Search spices...">
+      <button>Search</button>
+    </div>
+  </nav>
+
+  <header>
+    <h1 class="title">Our Premium Spices</h1>
+
+    <div class="product-grid">
+      <!-- Product 1 -->
+      <div class="card">
+        <img src="clove.jpg" alt="Clove">
+        <h3>Clove</h3>
+        <p>Rs. 1850 / 50g</p>
+        <div class="buttons">
+          <button class="cart" onclick="addToCart('Clove', 1850, 'clove.jpg', '50g')">Add to Cart</button>
+
+          <button class="buy" onclick="buyNow('Clove', 1850, 'clove.jpg', '50g')">Buy Now</button>
+          <button class="riv" onclick="riv() "><a href="reviews_single_page.html" class="riv">customer review</a></button>
+        </div>
+      </div>
+
+      <!-- Product 2 -->
+      <div class="card">
+        <img src="cinamon.jpg" alt="Cinnamon">
+        <h3>Cinnamon</h3>
+        <p>Rs. 1200 / 100g</p>
+        <div class="buttons">
+          <button class="cart" onclick="addToCart('Cinnamon', 1200, 'cinamon.jpg', '100g')">Add to Cart</button>
+
+          <button class="buy" onclick="buyNow('Cinnamon', 1200, 'cinamon.jpg', '100g')">Buy Now</button>
+          <button class="riv" onclick="riv() "><a href="reviews_single_page.html"class="riv">customer review</a></button>
+        </div>
+      </div>
+
+      <!-- Product 3 -->
+      <div class="card">
+        <img src="fresh-ginger-whole-and-chopped-on-rustic-wood-surface-162711007-ed63813f6b2a4acbaeb3e5ff1da17fa2.jpg"
+          alt="Ginger">
+        <h3>Ginger</h3>
+        <p>Rs. 800 / 50g</p>
+        <div class="buttons">
+          <button class="cart"
+            onclick="addToCart('Ginger', 800, 'fresh-ginger-whole-and-chopped-on-rustic-wood-surface-162711007-ed63813f6b2a4acbaeb3e5ff1da17fa2.jpg', '50g')">Add
+            to Cart</button>
+
+          <button class="buy" onclick="buyNow('Ginger', 800, 'fresh-ginger-whole-and-chopped-on-rustic-wood-surface-162711007-ed63813f6b2a4acbaeb3e5ff1da17fa2.jpg', '50g')">Buy Now</button>
+          <button class="riv" onclick="riv() "><a href="reviews_single_page.html"class="riv">customer review</a></button>
+        </div>
+      </div>
+
+      <!-- Product 4 -->
+      <div class="card">
+        <img src="cardamom.png" alt="Cardamom">
+        <h3>Cardamom</h3>
+        <p>Rs. 2500 / 50g</p>
+        <div class="buttons">
+          <button class="cart" onclick="addToCart('Cardamom', 2500, 'cardamom.png', '50g')">Add to Cart</button>
+
+          <button class="buy" onclick="buyNow('Cardamom', 2500, 'cardamom.png', '50g')">Buy Now</button>
+          <button class="riv" onclick="riv() "><a href="reviews_single_page.html"class="riv">customer review</a></button>
+        </div>
+      </div>
+
+      <!-- Product 5 -->
+      <div class="card">
+        <img src="pepper.jpg" alt="Pepper">
+        <h3>Black Pepper</h3>
+        <p>Rs. 900 / 100g</p>
+        <div class="buttons">
+          <button class="cart" onclick="addToCart('Black Pepper', 900, 'pepper.jpg', '100g')">Add to Cart</button>
+           <button class="buy" onclick="buyNow('Black Pepper', 900, 'pepper.jpg', '100g')">Buy Now</button>
+      <button class="riv" onclick="riv() "><a href="reviews_single_page.html"class="riv">customer review</a></button>
+        </div>
+      </div>
+
+      <!-- Product 6 -->
+      <div class="card">
+        <img src="Fresh-turmeric-root-Curcuma-longa-scaled-1300x867.jpg" alt="Turmeric">
+        <h3>Turmeric</h3>
+        <p>Rs. 650 / 100g</p>
+        <div class="buttons">
+          <button class="cart"
+            onclick="addToCart('Turmeric', 650, 'Fresh-turmeric-root-Curcuma-longa-scaled-1300x867.jpg', '100g')">Add to
+            Cart</button>
+
+          <button class="buy" onclick="buyNow('Turmeric', 650, 'Fresh-turmeric-root-Curcuma-longa-scaled-1300x867.jpg', '100g')">Buy Now</button>
+          <button class="riv" onclick="riv() "><a href="reviews_single_page.html"class="riv">customer review</a></button>
+        </div>
+      </div>
+
+      <!-- Product 7 -->
+      <div class="card">
+        <img src="nutmeg.jpg" alt="Nutmeg">
+        <h3>Nutmeg</h3>
+        <p>Rs. 1100 / 50g</p>
+        <div class="buttons">
+          <button class="cart" onclick="addToCart('Nutmeg', 1100, 'nutmeg.jpg', '50g')">Add to Cart</button>
+
+          <button class="buy" onclick="buyNow('Nutmeg', 1100, 'nutmeg.jpg', '50g')">Buy Now</button>
+         <button class="riv" onclick="riv() "><a href="reviews_single_page.html"class="riv">customer review</a></button>
+        </div>
+      </div>
+
+      <!-- Product 8 -->
+      <div class="card">
+        <img src="chili-powder.jpg" alt="Chili Powder">
+        <h3>Chili Powder</h3>
+        <p>Rs. 750 / 100g</p>
+        <div class="buttons">
+          <button class="cart" onclick="addToCart('Chili Powder', 750, 'chili-powder.jpg', '100g')">Add to Cart</button>
+
+          <button class="buy" onclick="buyNow('Chili Powder', 750, 'chili-powder.jpg', '100g')">Buy Now</button>
+          <button class="riv" onclick="riv() "><a href="reviews_single_page.html"class="riv">customer review</a></button>
+        </div>
+      </div>
+
+      <!-- Product 9 -->
+      <div class="card">
+        <img src="curry-leaf-rice-mix-powder.jpg" alt="Curry Mix">
+        <h3>Curry Mix</h3>
+        <p>Rs. 950 / 100g</p>
+        <div class="buttons">
+          <button class="cart" onclick="addToCart('Curry Mix', 950, 'curry-leaf-rice-mix-powder.jpg', '100g')">Add to
+            Cart</button>
+          <button class="buy" onclick="buyNow('Curry Mix', 950, 'curry-leaf-rice-mix-powder.jpg', '100g')">Buy Now</button>
+          <button class="riv" onclick="riv() "><a href="reviews_single_page.html"class="riv">customer review</a></button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <script src="cart.js"></script>
+  
+
+</body>
+
+</html>

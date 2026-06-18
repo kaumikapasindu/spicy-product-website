@@ -1,0 +1,78 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Track Order | Spices</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 0; padding: 0; background:#fafafa; }
+    header { background:#7c4b26; color:#fff; padding:16px 20px; }
+    main { padding: 20px; max-width: 800px; margin: 0 auto; }
+    .card { background:#fff; border-radius:14px; box-shadow:0 6px 20px rgba(0,0,0,.06); padding:16px; margin-bottom:14px; }
+    .muted { color:#666; font-size: 13px; }
+    .timeline { position: relative; margin-left: 10px; }
+    .step { display:flex; gap:12px; align-items:flex-start; margin: 12px 0; }
+    .dot { width:12px; height:12px; border-radius:50%; background:#7c4b26; margin-top:4px; }
+    .line { position:absolute; left:5px; top:0; bottom:0; width:2px; background:#e5e7eb; }
+    .topbar a { color: #fff; text-decoration: none; margin-right: 12px; }
+    .button { text-decoration:none; border:1px solid #ddd; padding:8px 12px; border-radius:10px; display:inline-block;}
+    .badge { padding:4px 10px; border-radius:999px; font-size:12px; background:#eee; }
+    .badge.Delivered { background:#dcfce7; }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <strong>Spices</strong>
+    <span> &middot; </span>
+    <a href="index.html">Home</a>
+    <a href="order-history.html">Order History</a>
+  </header>
+  <main>
+    <a class="button" href="order-history.html">← Back</a>
+    <h1>Track Order</h1>
+    <div id="summary" class="card"></div>
+    <div class="card">
+      <h3>Timeline</h3>
+      <div class="timeline">
+        <div class="line"></div>
+        <div id="timeline-steps"></div>
+      </div>
+    </div>
+  </main>
+
+  <script src="assets/js/store.js"></script>
+  <script>
+    const params = new URLSearchParams(location.search);
+    const orderId = params.get("orderId");
+    Store.seedDemo();
+    const order = Store.getOrder(orderId);
+
+    const summary = document.getElementById("summary");
+    const steps = document.getElementById("timeline-steps");
+
+    if (!order) {
+      summary.innerHTML = "<p class='muted'>Order not found.</p>";
+    } else {
+      summary.innerHTML = `
+        <div><strong>Order #</strong> ${order.id}</div>
+        <div class="muted">${new Date(order.date).toLocaleString()}</div>
+        <div>Tracking No: <strong>${order.trackingNo}</strong></div>
+        <div>Status: <span class="badge ${order.status}">${order.status}</span></div>
+      `;
+
+      const sorted = [...order.timeline].sort((a,b)=> new Date(a.ts)-new Date(b.ts));
+      sorted.forEach(ev => {
+        const row = document.createElement("div");
+        row.className = "step";
+        row.innerHTML = `<div class="dot"></div>
+                         <div>
+                           <div><strong>${ev.label}</strong></div>
+                           <div class="muted">${new Date(ev.ts).toLocaleString()}</div>
+                         </div>`;
+        steps.appendChild(row);
+      });
+    }
+  </script>
+</body>
+</html>

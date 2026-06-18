@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog | Taste of Ceylon</title>
+  <link rel="stylesheet" href="blog.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <div class="main">
+    <nav class="navbar">
+      <h2 class="logo">Taste of Ceylon</h2>
+      <ul class="menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="product.html">Products</a></li>
+        <li><a href="service.html">Services</a></li>
+        <li><a href="About.html">About</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="login.html" class="login-btn">Login</a></li>
+        <li>
+          <a href="cart.html" class="cart-nav">
+            <i class="fa fa-shopping-cart"></i> Cart <span class="cart-count">(0)</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="search">
+        <input type="search" placeholder="Search spices...">
+        <button>Search</button>
+      </div>
+    </nav>
+
+    <div class="blog-container">
+      <div class="blog-header">
+        <h1><i class="fas fa-blog"></i> Taste of Ceylon Blog</h1>
+        <p>Discover the world of spices - recipes, health benefits, and cooking tips</p>
+      </div>
+
+      <!-- Blog Search and Categories -->
+      <div class="blog-controls">
+        <div class="blog-search">
+          <input type="text" placeholder="Search blog posts..." id="blogSearch">
+          <button><i class="fas fa-search"></i></button>
+        </div>
+        <div class="blog-categories">
+          <button class="category-btn active" data-category="all">All Posts</button>
+          <button class="category-btn" data-category="recipes">Recipes</button>
+          <button class="category-btn" data-category="health">Health Benefits</button>
+          <button class="category-btn" data-category="cooking">Cooking Tips</button>
+          <button class="category-btn" data-category="spice-info">Spice Information</button>
+        </div>
+      </div>
+
+      <!-- Featured Post -->
+      <div class="featured-post">
+        <div class="featured-image">
+          <img src="blog-featured.jpg" alt="Sri Lankan Spices">
+        </div>
+        <div class="featured-content">
+          <span class="post-category featured-category">Spice Information</span>
+          <h2>The Rich History of Ceylon Spices</h2>
+          <p class="post-excerpt">Discover how Sri Lankan spices have shaped global cuisine for centuries. From ancient trade routes to modern kitchens, explore the journey of these aromatic treasures...</p>
+          <div class="post-meta">
+            <span class="post-date"><i class="far fa-calendar"></i> March 15, 2025</span>
+            <span class="post-author"><i class="far fa-user"></i> By Chef Ananda</span>
+          </div>
+          <a href="blog-single.html" class="read-more">Read Full Article <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <!-- Blog Posts Grid -->
+      <div class="blog-grid" id="blogGrid">
+        <!-- Blog Post 1 -->
+        <article class="blog-post" data-category="recipes">
+          <div class="post-image">
+            <img src="blog-recipe1.jpg" alt="Spicy Curry Recipe">
+          </div>
+          <div class="post-content">
+            <span class="post-category">Recipes</span>
+            <h3>Authentic Sri Lankan Chicken Curry</h3>
+            <p class="post-excerpt">Learn to make traditional Sri Lankan chicken curry with our secret spice blend that's been passed down through generations.</p>
+            <div class="post-meta">
+              <span class="post-date"><i class="far fa-calendar"></i> March 12, 2025</span>
+              <span class="post-read-time">5 min read</span>
+            </div>
+            <a href="blog-single.html" class="read-more">Read More</a>
+          </div>
+        </article>
+
+        <!-- Blog Post 2 -->
+        <article class="blog-post" data-category="health">
+          <div class="post-image">
+            <img src="blog-health1.jpg" alt="Turmeric Health Benefits">
+          </div>
+          <div class="post-content">
+            <span class="post-category">Health Benefits</span>
+            <h3>10 Amazing Health Benefits of Turmeric</h3>
+            <p class="post-excerpt">Discover how this golden spice can boost your immune system, reduce inflammation, and improve overall health.</p>
+            <div class="post-meta">
+              <span class="post-date"><i class="far fa-calendar"></i> March 10, 2025</span>
+              <span class="post-read-time">4 min read</span>
+            </div>
+            <a href="blog-single.html" class="read-more">Read More</a>
+          </div>
+        </article>
+
+        <!-- Blog Post 3 -->
+        <article class="blog-post" data-category="cooking">
+          <div class="post-image">
+            <img src="blog-tips1.jpg" alt="Spice Storage Tips">
+          </div>
+          <div class="post-content">
+            <span class="post-category">Cooking Tips</span>
+            <h3>How to Properly Store Your Spices</h3>
+            <p class="post-excerpt">Maximize the flavor and shelf life of your spices with these simple storage techniques and best practices.</p>
+            <div class="post-meta">
+              <span class="post-date"><i class="far fa-calendar"></i> March 8, 2025</span>
+              <span class="post-read-time">3 min read</span>
+            </div>
+            <a href="blog-single.html" class="read-more">Read More</a>
+          </div>
+        </article>
+
+        <!-- Blog Post 4 -->
+        <article class="blog-post" data-category="spice-info">
+          <div class="post-image">
+            <img src="blog-cinnamon.jpg" alt="Cinnamon Benefits">
+          </div>
+          <div class="post-content">
+            <span class="post-category">Spice Information</span>
+            <h3>True Cinnamon vs Cassia: What's the Difference?</h3>
+            <p class="post-excerpt">Learn how to identify authentic Ceylon cinnamon and understand why it's superior to common cassia cinnamon.</p>
+            <div class="post-meta">
+              <span class="post-date"><i class="far fa-calendar"></i> March 5, 2025</span>
+              <span class="post-read-time">6 min read</span>
+            </div>
+            <a href="blog-single.html" class="read-more">Read More</a>
+          </div>
+        </article>
+
+        <!-- Blog Post 5 -->
+        <article class="blog-post" data-category="recipes">
+          <div class="post-image">
+            <img src="blog-vegetarian.jpg" alt="Vegetarian Recipes">
+          </div>
+          <div class="post-content">
+            <span class="post-category">Recipes</span>
+            <h3>5 Vegetarian Dishes That Showcase Sri Lankan Spices</h3>
+            <p class="post-excerpt">From lentil curries to spicy sambols, explore plant-based recipes that highlight the complexity of Sri Lankan spices.</p>
+            <div class="post-meta">
+              <span class="post-date"><i class="far fa-calendar"></i> March 3, 2025</span>
+              <span class="post-read-time">7 min read</span>
+            </div>
+            <a href="blog-single.html" class="read-more">Read More</a>
+          </div>
+        </article>
+
+        <!-- Blog Post 6 -->
+        <article class="blog-post" data-category="health">
+          <div class="post-image">
+            <img src="blog-ayurveda.jpg" alt="Ayurvedic Spices">
+          </div>
+          <div class="post-content">
+            <span class="post-category">Health Benefits</span>
+            <h3>Ayurvedic Spices for Daily Wellness</h3>
+            <p class="post-excerpt">Discover how ancient Ayurvedic practices incorporate common spices for healing and maintaining balance.</p>
+            <div class="post-meta">
+              <span class="post-date"><i class="far fa-calendar"></i> March 1, 2025</span>
+              <span class="post-read-time">5 min read</span>
+            </div>
+            <a href="blog-single.html" class="read-more">Read More</a>
+          </div>
+        </article>
+      </div>
+
+      <!-- Load More Button -->
+      <div class="load-more-container">
+        <button class="load-more-btn" id="loadMore">Load More Articles</button>
+      </div>
+
+      <!-- Newsletter Subscription -->
+      <div class="newsletter-section">
+        <div class="newsletter-content">
+          <h3>Stay Updated with Our Spice Journey</h3>
+          <p>Subscribe to our newsletter for new recipes, spice tips, and exclusive offers</p>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Enter your email address" required>
+            <button type="submit">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+   
+
+  <script src="blog.js"></script>
+</body>
+</html>

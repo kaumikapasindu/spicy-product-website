@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Taste of Ceylon</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <div class="main">
+    <nav class="navbar">
+      <div class="nav-container">
+        <h2 class="logo">Taste of Ceylon</h2>
+        
+        <!-- Mobile menu toggle -->
+        <div class="menu-toggle" id="mobile-menu">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+        
+        <ul class="menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="product.html">Products</a></li>
+          <li><a href="service.html">Services</a></li>
+          <li><a href="About.html">About</a></li>
+          <li><a href="login.html" class="login-btn">Login</a></li>
+          <li>
+            <a href="cart.html" class="cart-nav">
+              <i class="fa fa-shopping-cart"></i> Cart <span class="cart-count">(0)</span>
+            </a>
+          </li>
+        </ul>
+
+        <div class="search">
+          <input type="search" placeholder="Search spices...">
+          <button>Search</button>
+        </div>
+        <div class="ordd">
+           <li><a href="order.html" class="ord">My orders</a></li>
+        </div>
+      </div>
+    </nav>
+
+       
+
+   <section class="ceylon-banner">
+  <div class="banner-content">
+    <h1 class="main-title">Welcome to Taste of Ceylon</h1>
+    <p class="subtitle">Authentic Sri Lankan spices, fresh and organic</p>
+    <button class="shop-now-btn">
+      
+    <a href="product.html">Shop Now</a>
+
+    </button>
+   
+  </div>
+</section>
+
+    <div class="content-section">
+      <div class="section-heading">
+        <h1>Our Best Products</h1>
+      </div>
+      
+      <div class="detail-section">
+        <h1>"Discover the rich heritage of Ceylon spices,</h1>
+        <p>Sourced directly from the lush landscapes of Sri Lanka. Known for their unmatched aroma, purity and flavor, our spices bring authenticity to every dish. From cinnamon and cardamom to black pepper</p>
+      </div>
+
+      <div class="photo-grid">
+        <div class="grid-item">
+          <img src="clove.jpg" alt="Clove">
+          <h2>Clove</h2>
+          <p>Rich aroma, used in cooking and Ayurveda. Cloves are aromatic flower buds used worldwide for their strong flavor and medicinal properties. They enhance curries, baked goods, and herbal teas, while also being valued in traditional Ayurveda.</p>
+        </div>
+
+        <div class="grid-item">
+          <img src="Cinamon.jpg" alt="Cinnamon">
+          <h2>Cinnamon</h2>
+          <p>Sweet-spicy flavor, perfect for desserts & curries. Cinnamon is a sweet-spicy bark spice native to Sri Lanka. It is widely used in desserts, curries, and beverages. Renowned for its health benefits, it helps regulate blood sugar and boosts immunity.</p>
+        </div>
+
+        <div class="grid-item">
+          <img src="pepper.jpg" alt="Black Pepper">
+          <h2>Black Pepper</h2>
+          <p>Known as the 'King of Spices', adds strong flavor. Known as the "King of Spices," pepper is prized for its sharp, pungent flavor. It elevates savory dishes, improves digestion, and is a key export of Sri Lanka's spice heritage.</p>
+        </div>
+      </div>
+
+      <section class="product-grid">
+        <div class="product-col">
+          <div class="product-card">
+            <img src="clove.jpg" alt="clove">
+            <h3>Clove</h3>
+            <p>Rs. 1850 / 50g</p>
+            <button class="btne" onclick="addToCart('Clove', 1850, 'clove.jpg', '50g')">Add to Cart</button>
+            <button class="buy" onclick="buyNow('Clove', 1850, 'clove.jpg', '50g')">Buy Now</button>
+          </div>
+
+          <div class="product-card">
+            <img src="Fresh-turmeric-root-Curcuma-longa-scaled-1300x867.jpg" alt="Turmeric">
+            <h3>Turmeric</h3>
+            <p>Rs. 450 / 100g</p>
+            <button class="btne" onclick="addToCart('Turmeric', 450, 'Fresh-turmeric-root-Curcuma-longa-scaled-1300x867.jpg', '100g')">Add to Cart</button>
+            <button class="buy" onclick="buyNow('Turmeric', 450, 'Fresh-turmeric-root-Curcuma-longa-scaled-1300x867.jpg', '100g')">Buy Now</button>
+          </div>
+        </div>
+
+        <div class="product-col">
+          <div class="product-card">
+            <img src="cinamon.jpg" alt="Cinnamon">
+            <h3>Cinnamon</h3>
+            <p>Rs. 1200 / 100g</p>
+            <button class="btne" onclick="addToCart('Cinnamon', 1200, 'cinamon.jpg', '100g')">Add to Cart</button>
+            <button class="buy" onclick="buyNow('Cinnamon', 1200, 'cinamon.jpg', '100g')">Buy Now</button>
+          </div>
+
+          <div class="product-card">
+            <img src="pepper.jpg" alt="Black Pepper">
+            <h3>Black Pepper</h3>
+            <p>Rs. 950 / 100g</p>
+            <button class="btne" onclick="addToCart('Black Pepper', 950, 'pepper.jpg', '100g')">Add to Cart</button>
+            <button class="buy" onclick="buyNow('Black Pepper', 950, 'pepper.jpg', '100g')">Buy Now</button>
+          </div>
+        </div>
+
+        <div class="product-col">
+          <div class="product-card">
+            <img src="fresh-ginger-whole-and-chopped-on-rustic-wood-surface-162711007-ed63813f6b2a4acbaeb3e5ff1da17fa2.jpg" alt="ginger">
+            <h3>Ginger</h3>
+            <p>Rs. 800 / 50g</p>
+            <button class="btne" onclick="addToCart('Ginger', 800, 'fresh-ginger-whole-and-chopped-on-rustic-wood-surface-162711007-ed63813f6b2a4acbaeb3e5ff1da17fa2.jpg', '50g')">Add to Cart</button>
+            <button class="buy" onclick="buyNow('Ginger', 800, 'fresh-ginger-whole-and-chopped-on-rustic-wood-surface-162711007-ed63813f6b2a4acbaeb3e5ff1da17fa2.jpg', '50g')">Buy Now</button>
+          </div>
+
+          <div class="product-card">
+            <img src="nutmeg.jpg" alt="nutmeg">
+            <h3>Nutmeg</h3>
+            <p>Rs. 600 / 100g</p>
+            <button class="btne" onclick="addToCart('Nutmeg', 600, 'nutmeg.jpg', '100g')">Add to Cart</button>
+            <button class="buy" onclick="buyNow('Nutmeg', 600, 'nutmeg.jpg', '100g')">Buy Now</button>
+          </div>
+        </div>
+      </section>
+
+      <div class="image-slider-container">
+        <div class="content">
+          <div class="images">
+            <img src="img1.jpg" alt="Spice image 1">
+            <img src="img2.jpg" alt="Spice image 2">
+            <img src="img3.jpeg" alt="Spice image 3">
+            <img src="img4.jpeg" alt="Spice image 4">
+            <img src="img5.jpeg" alt="Spice image 5">
+          </div>
+        </div>
+
+        <div class="info">
+          <p>At Taste of Ceylon, we take pride in delivering the finest, hand-picked Sri Lankan spices straight from trusted local farmers. Every product is carefully cleaned, processed, and packed under strict hygiene standards to preserve its natural aroma and flavor. Our commitment to quality and cleanliness ensures that you enjoy only the freshest, purest, and most authentic taste in every spice you buy. Our team ensures that all spices are 100% natural, chemical-free, and hygienically packed to maintain their original taste and color. Whether it's our aromatic cinnamon, golden turmeric, or fiery black pepper, you can trust that every pinch brings authentic Sri Lankan flavor to your kitchen. We take pride in delivering not just spices — but a promise of quality, purity, and cleanliness in every pack.</p>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <h2>Taste of Ceylon</h2>
+        <p>
+          Taste of Ceylon is your trusted place to find authentic Sri Lankan spices.  
+          We provide fresh and organic products to bring natural flavors to your kitchen.
+          Taste of Ceylon is more than just a brand — it is a promise of quality.
+          We work closely with growers to bring you organic, sustainably harvested spices that enrich your cooking.
+          Every spice tells a story of tradition, culture, and care.
+        </p>
+
+        <div class="socials">
+          <a href="facebook.com"><i class="fa-brands fa-facebook"></i></a>
+          <a href="twitter.com"><i class="fab fa-twitter"></i></a>
+          <a href="google.com"><i class="fab fa-google"></i></a>
+          <a href="youtube.com"><i class="fab fa-youtube"></i></a>
+          <a href="linkedin.com"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2025 Taste of Ceylon | All Rights Reserved</p>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="About.html">About</a>
+          <a href="contact.html">Contact</a>
+          
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="cart.js"></script>
+  <script>
+    // Mobile menu toggle
+    const mobileMenu = document.getElementById('mobile-menu');
+    const navMenu = document.querySelector('.menu');
+    
+    mobileMenu.addEventListener('click', function() {
+      navMenu.classList.toggle('active');
+      mobileMenu.classList.toggle('active');
+    });
+
+    // Image slider
+    var indexvalue = 0;
+    function slideShow(){
+      setTimeout(slideShow, 2500);
+      var x;
+      const img = document.querySelectorAll(".images img");
+      for(x = 0; x < img.length; x++){
+        img[x].style.display = "none";
+      }
+      indexvalue++;
+      if(indexvalue > img.length){indexvalue = 1}
+      img[indexvalue-1].style.display = "block";
+    }
+    slideShow();
+  </script>
+</body>
+</html>
