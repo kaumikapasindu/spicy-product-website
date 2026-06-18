@@ -53,7 +53,6 @@ spices-website/
 
 ## 📸 Screenshots
 
-Place the provided screenshots inside a folder named `screenshots`.
 
 ### Home Page
 ![screenshot](screenshot/Screenshot%20(9).png)
