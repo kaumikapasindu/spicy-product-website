@@ -59,16 +59,16 @@ Place the provided screenshots inside a folder named `screenshots`.
 ![screenshot](Screenshot (9).png)
 
 ### Products Page
-![Products](Screenshot (11).png)
+![screenshot](Screenshot (11).png)
 
 ### Shopping Experience
-![Shopping](Screenshot (10).png)
+![screenshot](Screenshot (10).png)
 
 ### Cart / Checkout
-![Checkout](Screenshot (13).png)
+![screenshot](Screenshot (13).png)
 
 ### Additional Pages
-![Additional Pages](Screenshot (14).png)
+![screenshot](Screenshot (14).png)
 
 ## 🚀 Getting Started
 
