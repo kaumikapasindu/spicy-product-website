@@ -56,7 +56,7 @@ spices-website/
 Place the provided screenshots inside a folder named `screenshots`.
 
 ### Home Page
-[Home Page](Screenshot (9).png)
+[Screenshot](Screenshot (9).png)
 
 ### Products Page
 ![Products](Screenshot (11).png)
